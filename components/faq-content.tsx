@@ -1,7 +1,7 @@
 "use client"
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { Plus, X } from "lucide-react"
 
 const faqs = [
   {
@@ -48,26 +48,41 @@ const faqs = [
 ]
 
 export function FAQContent() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
+
   return (
     <section className="py-16 px-4">
       <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white border rounded-lg p-6">
-              <Accordion type="single" collapsible>
-                <AccordionItem value={`item-${index}`} className="border-0">
-                  <AccordionTrigger className="text-left hover:no-underline text-sm font-medium">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-[#777777] text-sm">{faq.answer}</AccordionContent>
-                </AccordionItem>
-              </Accordion>
+            <div key={index} className="bg-white border rounded-lg self-start">
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full flex items-center justify-between gap-4 text-left p-6 hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-gray-900 font-medium text-sm flex-1">{faq.question}</span>
+                <div className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full flex-shrink-0">
+                  {openIndex === index ? (
+                    <X className="text-[#1A5DC9] size-4" />
+                  ) : (
+                    <Plus className="text-[#1A5DC9] size-4" />
+                  )}
+                </div>
+              </button>
+              
+              {openIndex === index && (
+                <div className="px-6 pb-6 border-t border-gray-100">
+                  <div className="text-[#777777] text-sm pt-4">
+                    {faq.answer}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Button className="bg-primary hover:bg-primary/90">View All FAQs</Button>
         </div>
       </div>
     </section>

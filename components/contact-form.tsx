@@ -103,25 +103,25 @@ export function ContactForm() {
       <CardContent className="p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium mb-2 block">First Name</label>
+          <div>
+            <label className="text-sm font-medium mb-2 block">First Name</label>
               <Input 
                 placeholder="Enter your first name" 
                 value={formData.firstName}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
                 required
               />
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Last Name</label>
+          </div>
+          <div>
+            <label className="text-sm font-medium mb-2 block">Last Name</label>
               <Input 
                 placeholder="Enter your last name" 
                 value={formData.lastName}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
                 required
               />
-            </div>
           </div>
+        </div>
 
           <div>
             <label className="text-sm font-medium mb-2 block">Email Address</label>
@@ -142,17 +142,17 @@ export function ContactForm() {
               onChange={(e) => handleInputChange('subject', e.target.value)}
               required
             />
-          </div>
+        </div>
 
-          <div>
-            <label className="text-sm font-medium mb-2 block">Message</label>
+        <div>
+          <label className="text-sm font-medium mb-2 block">Message</label>
             <Textarea 
               placeholder="Type your message here..." 
               className="min-h-[120px]"
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
             />
-          </div>
+        </div>
 
           <Button 
             type="submit"

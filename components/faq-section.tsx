@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button } from "./ui/button"
 import { Plus, X } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const faqs = [
   {
@@ -26,6 +27,7 @@ const faqs = [
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const router = useRouter()
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
@@ -71,7 +73,7 @@ export function FAQSection() {
         </div>
 
         <div className="text-center mt-8">
-          <Button className="bg-primary hover:bg-primary/90">View All FAQs</Button>
+          <Button onClick={() => router.push('/faq')} className="bg-primary hover:bg-primary/90">View All FAQs</Button>
         </div>
       </div>
     </section>

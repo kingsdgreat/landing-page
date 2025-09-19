@@ -117,7 +117,7 @@ export function PropertyContact({ property }: PropertyContactProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="relative">
+        <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input 
               placeholder="Your name" 
@@ -126,9 +126,9 @@ export function PropertyContact({ property }: PropertyContactProps) {
               onChange={(e) => handleInputChange('name', e.target.value)}
               required
             />
-          </div>
+        </div>
 
-          <div className="relative">
+        <div className="relative">
             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input 
               placeholder="Your email address" 
@@ -138,9 +138,9 @@ export function PropertyContact({ property }: PropertyContactProps) {
               onChange={(e) => handleInputChange('email', e.target.value)}
               required
             />
-          </div>
+        </div>
 
-          <div className="relative">
+        <div className="relative">
             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input 
               placeholder="Your Phone number" 
@@ -150,17 +150,17 @@ export function PropertyContact({ property }: PropertyContactProps) {
               onChange={(e) => handleInputChange('phone', e.target.value)}
               required
             />
-          </div>
+        </div>
 
-          <div className="relative">
+        <div className="relative">
             <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <Textarea 
+          <Textarea
               placeholder="Type your message"
-              className="pl-10 min-h-[100px]"
+            className="pl-10 min-h-[100px]"
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
-            />
-          </div>
+          />
+        </div>
 
           <Button 
             type="submit"

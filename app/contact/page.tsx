@@ -41,61 +41,61 @@ function ContactInfo() {
       {/* Our Office Card */}
       <Card>
         <CardContent className="p-2">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
               <Building className="w-6 h-6 text-primary" />
-            </div>
-            <div>
+        </div>
+        <div>
               <h3 className="font-semibold text-lg">Our Office</h3>
               <p className="text-[#777777]">269 24th St, Suite 920 Oakland, CA. 94216</p>
-            </div>
-          </div>
+        </div>
+      </div>
         </CardContent>
       </Card>
 
       {/* Phone Card */}
       <Card>
         <CardContent className="p-2">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
               <Phone className="w-6 h-6 text-primary" />
-            </div>
-            <div>
+        </div>
+        <div>
               <h3 className="font-semibold text-lg">Phone</h3>
               <p className="text-[#777777]">+32 341-02500</p>
-            </div>
-          </div>
+        </div>
+      </div>
         </CardContent>
       </Card>
 
       {/* Email Card */}
       <Card>
         <CardContent className="p-2">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
               <Mail className="w-6 h-6 text-primary" />
-            </div>
-            <div>
+        </div>
+        <div>
               <h3 className="font-semibold text-lg">Email</h3>
               <p className="text-[#777777]">offers@sundiallands.com</p>
-            </div>
-          </div>
+        </div>
+      </div>
         </CardContent>
       </Card>
 
       {/* Business Hours Card */}
       <Card>
         <CardContent className="p-2">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
               <Clock className="w-6 h-6 text-primary" />
-            </div>
-            <div>
+        </div>
+        <div>
               <h3 className="font-semibold text-lg">Business Hours</h3>
               <p className="text-[#777777]">Monday - Friday</p>
               <p className="text-[#777777]">9:00 AM - 6:00 PM</p>
-            </div>
-          </div>
+        </div>
+      </div>
         </CardContent>
       </Card>
     </div>

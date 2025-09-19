@@ -43,20 +43,20 @@ export async function getFeaturedProperties(): Promise<Property[]> {
   try {
     console.log('Fetching featured properties...')
     
-    const query = `*[_type == "property" && featured == true] | order(_createdAt desc) [0...6] {
-      _id,
-      title,
-      slug,
-      price,
-      location,
-      acreage,
-      category,
-      "images": images[0...1]{
-        asset,
-        alt
-      },
-      _createdAt
-    }`
+  const query = `*[_type == "property" && featured == true] | order(_createdAt desc) [0...6] {
+    _id,
+    title,
+    slug,
+    price,
+    location,
+    acreage,
+    category,
+    "images": images[0...1]{
+      asset,
+      alt
+    },
+    _createdAt
+  }`
 
     const result = await client.fetch(query)
     console.log('Featured properties fetched:', result?.length || 0, 'properties')

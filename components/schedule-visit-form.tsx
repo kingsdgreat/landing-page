@@ -135,7 +135,7 @@ export function ScheduleVisitForm() {
               onChange={(e) => handleInputChange('lastName', e.target.value)}
               required
             />
-          </div>
+        </div>
 
           <div>
             <label className="text-sm font-medium mb-2 block">Email Address</label>
@@ -193,18 +193,18 @@ export function ScheduleVisitForm() {
                   onChange={(e) => handleInputChange('preferredTime', e.target.value)}
                 />
               </div>
-            </div>
           </div>
+        </div>
 
-          <div>
-            <label className="text-sm font-medium mb-2 block">Message</label>
+        <div>
+          <label className="text-sm font-medium mb-2 block">Message</label>
             <Textarea 
               placeholder="Type your message here..." 
               className="min-h-[120px]"
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
             />
-          </div>
+        </div>
 
           <Button 
             type="submit"
