@@ -20,7 +20,7 @@ export default function PropertiesPage() {
   useEffect(() => {
     const loadProperties = async () => {
       try {
-        const properties = await getAllProperties()
+  const properties = await getAllProperties()
         setAllProperties(properties)
         setFilteredProperties(properties)
       } catch (error) {

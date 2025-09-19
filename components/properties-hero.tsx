@@ -33,12 +33,12 @@ export function PropertiesHero({
 
   return (
     <section className="py-16 px-4 bg-muted/30">
-      <div className="max-w-7xl mx-auto text-center">
+      <div className="max-w-5xl mx-auto text-center">
         <h1 className="text-4xl font-bold mb-4">Featured Properties</h1>
         <p className="text-[#777777] mb-8">Discover premium land properties for sale across prime locations</p>
 
         {/* Search and filters - matching the image design */}
-        <div className="max-w-4xl mx-auto mb-8">
+        <div className=" mx-auto mb-8">
           <div className="bg-white rounded-2xl shadow-lg p-2 flex items-center gap-3">
             {/* Search Input */}
             <div className="flex-1 relative">

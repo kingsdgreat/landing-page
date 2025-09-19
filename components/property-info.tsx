@@ -16,9 +16,9 @@ export function PropertyInfo({ property }: PropertyInfoProps) {
         
         <div className="text-4xl font-bold text-blue-600 mb-4">
           ${property.price?.toLocaleString() || 'Price not available'}
-        </div>
+      </div>
 
-        <div className="flex items-center gap-2 mb-6">
+      <div className="flex items-center gap-2 mb-6">
           <MapPin className="h-4 w-4 text-gray-500" />
           <span className="text-gray-600">{property.location}</span>
         </div>
@@ -31,16 +31,16 @@ export function PropertyInfo({ property }: PropertyInfoProps) {
           {property.features?.includes("mountain-view") && (
             <div className="flex items-center gap-2">
               <Mountain className="h-5 w-5 text-blue-600" />
-              <span className="text-sm font-medium">Mountain View</span>
-            </div>
-          )}
-          {property.features?.includes("paved-access") && (
-            <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">Mountain View</span>
+          </div>
+        )}
+        {property.features?.includes("paved-access") && (
+          <div className="flex items-center gap-2">
               <Car className="h-5 w-5 text-blue-600" />
-              <span className="text-sm font-medium">Paved Access</span>
-            </div>
-          )}
-        </div>
+            <span className="text-sm font-medium">Paved Access</span>
+          </div>
+        )}
+      </div>
       </CardContent>
     </Card>
   )

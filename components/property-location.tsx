@@ -44,7 +44,7 @@ export function PropertyLocation({ property }: PropertyLocationProps) {
             referrerPolicy="no-referrer-when-downgrade"
             title={`Map showing location of ${property.title}`}
           />
-        </div>
+          </div>
 
         {/* Location Actions */}
         <div className="flex gap-3 mb-6">
@@ -84,14 +84,6 @@ export function PropertyLocation({ property }: PropertyLocationProps) {
           </div>
         </div>
 
-        {/* Coordinates Display */}
-        {property.coordinates && (
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-            <div className="text-sm text-gray-600">
-              <strong>GPS Coordinates:</strong> {coords.lat.toFixed(6)}, {coords.lng.toFixed(6)}
-            </div>
-          </div>
-        )}
       </CardContent>
     </Card>
   )

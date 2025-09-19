@@ -4,8 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, User, Mail, Phone } from "lucide-react"
-import { toast } from "sonner"
+import { MapPin, User, Mail, Phone, CheckCircle } from "lucide-react"
 
 interface FormData {
   location: string
@@ -22,27 +21,38 @@ export function HeroSection() {
     phone: ""
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [successMessage, setSuccessMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }))
+    // Clear messages when user starts typing
+    if (successMessage || errorMessage) {
+      setSuccessMessage("")
+      setErrorMessage("")
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    // Clear previous messages
+    setSuccessMessage("")
+    setErrorMessage("")
+    
     // Basic validation
     if (!formData.location || !formData.name || !formData.email || !formData.phone) {
-      toast.error("Please fill in all fields")
+      setErrorMessage("Please fill in all fields")
       return
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(formData.email)) {
-      toast.error("Please enter a valid email address")
+      setErrorMessage("Please enter a valid email address")
       return
     }
 
@@ -70,7 +80,7 @@ export function HeroSection() {
       })
 
       if (response.ok) {
-        toast.success("Message sent successfully! We'll get back to you soon.")
+        setSuccessMessage("Message sent successfully! We'll get back to you soon.")
         // Reset form
         setFormData({
           location: "",
@@ -83,7 +93,7 @@ export function HeroSection() {
       }
     } catch (error) {
       console.error('Error sending message:', error)
-      toast.error("Failed to send message. Please try again.")
+      setErrorMessage("Failed to send message. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -262,7 +272,22 @@ export function HeroSection() {
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
+          </div>
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <p className="text-green-700 text-sm">{successMessage}</p>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-red-700 text-sm">{errorMessage}</p>
         </div>
+          )}
         </form>
       </div>
     </section>

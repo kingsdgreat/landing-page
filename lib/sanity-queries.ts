@@ -9,26 +9,26 @@ export async function getAllProperties(): Promise<Property[]> {
       dataset: process.env.NEXT_PUBLIC_SANITY_DATASET
     })
 
-    const query = `*[_type == "property"] | order(_createdAt desc) {
-      _id,
-      title,
-      slug,
-      price,
-      location,
-      acreage,
-      category,
-      featured,
-      "images": images[]{
-        asset,
-        alt
-      },
-      description,
-      features,
-      coordinates,
-      zoning,
-      utilities,
-      _createdAt
-    }`
+  const query = `*[_type == "property"] | order(_createdAt desc) {
+    _id,
+    title,
+    slug,
+    price,
+    location,
+    acreage,
+    category,
+    featured,
+    "images": images[]{
+      asset,
+      alt
+    },
+    description,
+    features,
+    coordinates,
+    zoning,
+    utilities,
+    _createdAt
+  }`
 
     const result = await client.fetch(query)
     console.log('Properties fetched:', result?.length || 0, 'properties')
@@ -43,20 +43,20 @@ export async function getFeaturedProperties(): Promise<Property[]> {
   try {
     console.log('Fetching featured properties...')
     
-    const query = `*[_type == "property" && featured == true] | order(_createdAt desc) [0...6] {
-      _id,
-      title,
-      slug,
-      price,
-      location,
-      acreage,
-      category,
-      "images": images[0...1]{
-        asset,
-        alt
-      },
-      _createdAt
-    }`
+  const query = `*[_type == "property" && featured == true] | order(_createdAt desc) [0...6] {
+    _id,
+    title,
+    slug,
+    price,
+    location,
+    acreage,
+    category,
+    "images": images[0...1]{
+      asset,
+      alt
+    },
+    _createdAt
+  }`
 
     const result = await client.fetch(query)
     console.log('Featured properties fetched:', result?.length || 0, 'properties')
@@ -77,27 +77,27 @@ export async function getFeaturedProperties(): Promise<Property[]> {
 
 export async function getPropertyBySlug(slug: string): Promise<Property | null> {
   try {
-    const query = `*[_type == "property" && slug.current == $slug][0] {
-      _id,
-      title,
-      slug,
-      price,
-      location,
-      acreage,
-      category,
-      "images": images[]{
-        asset,
-        alt
-      },
-      description,
-      features,
-      coordinates,
-      zoning,
-      utilities,
-      schoolDistrict,
-      county,
-      _createdAt
-    }`
+  const query = `*[_type == "property" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    price,
+    location,
+    acreage,
+    category,
+    "images": images[]{
+      asset,
+      alt
+    },
+    description,
+    features,
+    coordinates,
+    zoning,
+    utilities,
+    schoolDistrict,
+    county,
+    _createdAt
+  }`
 
     const result = await client.fetch(query, { slug })
     return result || null
@@ -109,20 +109,20 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
 
 export async function getPropertiesByCategory(category: string): Promise<Property[]> {
   try {
-    const query = `*[_type == "property" && category == $category] | order(_createdAt desc) {
-      _id,
-      title,
-      slug,
-      price,
-      location,
-      acreage,
-      category,
-      "images": images[0...1]{
-        asset,
-        alt
-      },
-      _createdAt
-    }`
+  const query = `*[_type == "property" && category == $category] | order(_createdAt desc) {
+    _id,
+    title,
+    slug,
+    price,
+    location,
+    acreage,
+    category,
+    "images": images[0...1]{
+      asset,
+      alt
+    },
+    _createdAt
+  }`
 
     const result = await client.fetch(query, { category })
     return result || []
@@ -134,24 +134,24 @@ export async function getPropertiesByCategory(category: string): Promise<Propert
 
 export async function searchProperties(searchTerm: string): Promise<Property[]> {
   try {
-    const query = `*[_type == "property" && (
-      title match $searchTerm + "*" ||
-      location match $searchTerm + "*" ||
-      description match $searchTerm + "*"
-    )] | order(_createdAt desc) {
-      _id,
-      title,
-      slug,
-      price,
-      location,
-      acreage,
-      category,
-      "images": images[0...1]{
-        asset,
-        alt
-      },
-      _createdAt
-    }`
+  const query = `*[_type == "property" && (
+    title match $searchTerm + "*" ||
+    location match $searchTerm + "*" ||
+    description match $searchTerm + "*"
+  )] | order(_createdAt desc) {
+    _id,
+    title,
+    slug,
+    price,
+    location,
+    acreage,
+    category,
+    "images": images[0...1]{
+      asset,
+      alt
+    },
+    _createdAt
+  }`
 
     const result = await client.fetch(query, { searchTerm })
     return result || []
