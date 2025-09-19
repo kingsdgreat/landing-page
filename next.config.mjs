@@ -13,10 +13,6 @@ const nextConfig = {
   output: 'standalone',
   // Optimize for production
   compress: true,
-  // Enable experimental features for better performance
-  experimental: {
-    optimizeCss: true,
-  },
   // Security headers
   async headers() {
     return [
