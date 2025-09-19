@@ -43,28 +43,43 @@ export async function getFeaturedProperties(): Promise<Property[]> {
   try {
     console.log('Fetching featured properties...')
     
-  const query = `*[_type == "property" && featured == true] | order(_createdAt desc) [0...6] {
-    _id,
-    title,
-    slug,
-    price,
-    location,
-    acreage,
-    category,
-    "images": images[0...1]{
-      asset,
-      alt
-    },
-    _createdAt
-  }`
+    const query = `*[_type == "property" && featured == true] | order(_createdAt desc) [0...6] {
+      _id,
+      title,
+      slug,
+      price,
+      location,
+      acreage,
+      category,
+      "images": images[0...1]{
+        asset,
+        alt
+      },
+      _createdAt
+    }`
 
     const result = await client.fetch(query)
     console.log('Featured properties fetched:', result?.length || 0, 'properties')
     
-    // If no featured properties, get all properties as fallback
+    // If no featured properties, get first 6 properties as fallback
     if (!result || result.length === 0) {
-      console.log('No featured properties found, fetching all properties...')
-      return await getAllProperties()
+      console.log('No featured properties found, fetching first 6 properties...')
+      const fallbackQuery = `*[_type == "property"] | order(_createdAt desc) [0...6] {
+        _id,
+        title,
+        slug,
+        price,
+        location,
+        acreage,
+        category,
+        "images": images[0...1]{
+          asset,
+          alt
+        },
+        _createdAt
+      }`
+      const fallbackResult = await client.fetch(fallbackQuery)
+      return fallbackResult || []
     }
     
     return result || []

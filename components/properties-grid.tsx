@@ -36,12 +36,12 @@ export function PropertiesGrid({ properties }: PropertiesGridProps) {
   }, [properties])
 
   return (
-    <section className="py-16 px-4">
+    <section className="py-16 px-8">
       <div className=" mx-auto">
         {/* Properties grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {paginatedProperties.map((property) => (
-            <Card key={property._id} className="overflow-hidden hover:shadow-lg transition-shadow">
+            <Card key={property._id} className="overflow-hidden py-0 hover:shadow-lg transition-shadow">
               <div className="relative">
                 <img
                   src={getPropertyImageUrl(property.images?.[0]) || "/placeholder.svg"}

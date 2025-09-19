@@ -15,7 +15,7 @@ export default async function HomePage() {
       <Header />
       <main>
         <HeroSection />
-        <FeaturedProperties properties={featuredProperties} />
+          <FeaturedProperties properties={featuredProperties} />
         <HowItWorks />
         <FAQSection />
         <CTASection />
