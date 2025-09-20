@@ -17,9 +17,9 @@ export function Header() {
   }
 
   return (
-    <header className="w-full">
+    <header className="w-full ">
       {/* Top bar with contact info and social links */}
-      <div className="bg-[#0E2207] text-white py-2 px-4 sm:px-6 lg:px-10">
+      <div className="bg-[#0E2207] text-white py-2 px-4 sm:px-6 lg:px-10 hidden">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-xs sm:text-sm">
           {/* Social links - hidden on very small screens */}
           <div className="hidden sm:flex items-center gap-3">
