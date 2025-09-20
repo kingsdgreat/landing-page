@@ -4,7 +4,14 @@ export interface Property {
   slug: {
     current: string
   }
+  apn?: string
+  size?: string
   price: number
+  address: string
+  city?: string
+  county?: string
+  zipCode?: string
+  state?: string
   location: string
   acreage: number
   category: string
@@ -16,11 +23,24 @@ export interface Property {
     lat: number
     lng: number
   }
-  zoning: string
+  zoning?: string
   utilities: string[]
   schoolDistrict?: string
-  county?: string
   _createdAt: string
+  
+  // New fields from CSV
+  water?: boolean
+  electricity?: boolean
+  sewerSeptic?: boolean
+  buildingRestriction?: string
+  subDivision?: string
+  mobileHomes?: boolean
+  notes?: string
+  contactInfo?: string
+  dateFirstAvailable?: string
+  dateToReevaluate?: string
+  propertyPicturesLink?: string
+  mlsListingLink?: string
 }
 
 export interface SanityImage {

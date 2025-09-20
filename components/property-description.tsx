@@ -9,11 +9,11 @@ interface PropertyDescriptionProps {
 
 export function PropertyDescription({ property }: PropertyDescriptionProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Property Description</CardTitle>
+    <Card className="border-0 shadow-none">
+      <CardHeader className="px-0 pb-4">
+        <CardTitle className="text-xl font-semibold">Property Description</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-0">
         <p className="text-gray-600 leading-relaxed">{property.description}</p>
       </CardContent>
     </Card>

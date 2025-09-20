@@ -24,42 +24,65 @@ export const propertySchema = {
       validation: (Rule: any) => Rule.required(),
     },
     {
+      name: "apn",
+      title: "Property APN",
+      type: "string",
+    },
+    {
+      name: "size",
+      title: "Property Size",
+      type: "string",
+    },
+    {
       name: "price",
       title: "Price",
       type: "number",
-      validation: (Rule: any) => Rule.required().positive(),
+      validation: (Rule: any) => Rule.positive(),
     },
     {
-      name: "location",
-      title: "Location",
+      name: "address",
+      title: "Property Address",
       type: "string",
       validation: (Rule: any) => Rule.required(),
     },
     {
-      name: "acreage",
-      title: "Acreage",
-      type: "number",
-      validation: (Rule: any) => Rule.required().positive(),
+      name: "city",
+      title: "Property City",
+      type: "string",
     },
     {
-      name: "category",
-      title: "Category",
+      name: "county",
+      title: "Property County",
       type: "string",
-      options: {
-        list: [
-          { title: "Residential Land", value: "residential" },
-          { title: "Commercial Plot", value: "commercial" },
-          { title: "Industrial Plot", value: "industrial" },
-          { title: "Agricultural Land", value: "agricultural" },
-        ],
-      },
+    },
+    {
+      name: "zipCode",
+      title: "Property Zip Code",
+      type: "string",
+    },
+    {
+      name: "description",
+      title: "Property Description",
+      type: "text",
+      rows: 4,
       validation: (Rule: any) => Rule.required(),
     },
     {
-      name: "featured",
-      title: "Featured Property",
-      type: "boolean",
-      initialValue: false,
+      name: "coordinates",
+      title: "GPS Coordinates",
+      type: "object",
+      fields: [
+        {
+          name: "lat",
+          title: "Latitude",
+          type: "number",
+        },
+        {
+          name: "lng",
+          title: "Longitude",
+          type: "number",
+        },
+      ],
     },
     {
       name: "images",
@@ -80,14 +103,107 @@ export const propertySchema = {
           ],
         },
       ],
-      validation: (Rule: any) => Rule.required().min(1),
     },
     {
-      name: "description",
-      title: "Description",
+      name: "water",
+      title: "Water Available",
+      type: "boolean",
+      initialValue: false,
+    },
+    {
+      name: "electricity",
+      title: "Electricity Available",
+      type: "boolean",
+      initialValue: false,
+    },
+    {
+      name: "sewerSeptic",
+      title: "Sewer/Septic Available",
+      type: "boolean",
+      initialValue: false,
+    },
+    {
+      name: "buildingRestriction",
+      title: "Building Restriction",
+      type: "string",
+    },
+    {
+      name: "subDivision",
+      title: "Sub-Division",
+      type: "string",
+    },
+    {
+      name: "zoning",
+      title: "Zoning",
+      type: "string",
+    },
+    {
+      name: "mobileHomes",
+      title: "Mobile Homes Allowed",
+      type: "boolean",
+      initialValue: false,
+    },
+    {
+      name: "notes",
+      title: "Notes - Utilities and Important Info",
       type: "text",
-      rows: 4,
-      validation: (Rule: any) => Rule.required(),
+      rows: 3,
+    },
+    {
+      name: "contactInfo",
+      title: "City or County Contact Information",
+      type: "text",
+      rows: 2,
+    },
+    {
+      name: "dateFirstAvailable",
+      title: "Date First Available",
+      type: "date",
+    },
+    {
+      name: "dateToReevaluate",
+      title: "Date to Re-evaluate Price",
+      type: "date",
+    },
+    {
+      name: "propertyPicturesLink",
+      title: "Link to Property Pictures",
+      type: "url",
+    },
+    {
+      name: "mlsListingLink",
+      title: "Link to MLS Listing",
+      type: "url",
+    },
+    // Legacy fields for backward compatibility
+    {
+      name: "location",
+      title: "Location (Legacy)",
+      type: "string",
+    },
+    {
+      name: "acreage",
+      title: "Acreage (Legacy)",
+      type: "number",
+    },
+    {
+      name: "category",
+      title: "Category",
+      type: "string",
+      options: {
+        list: [
+          { title: "Residential Land", value: "residential" },
+          { title: "Commercial Plot", value: "commercial" },
+          { title: "Industrial Plot", value: "industrial" },
+          { title: "Agricultural Land", value: "agricultural" },
+        ],
+      },
+    },
+    {
+      name: "featured",
+      title: "Featured Property",
+      type: "boolean",
+      initialValue: false,
     },
     {
       name: "features",
@@ -102,37 +218,6 @@ export const propertySchema = {
           { title: "Mountain View", value: "mountain-view" },
           { title: "Paved Access", value: "paved-access" },
           { title: "Building Permitted", value: "building-permitted" },
-        ],
-      },
-    },
-    {
-      name: "coordinates",
-      title: "Coordinates",
-      type: "object",
-      fields: [
-        {
-          name: "lat",
-          title: "Latitude",
-          type: "number",
-        },
-        {
-          name: "lng",
-          title: "Longitude",
-          type: "number",
-        },
-      ],
-    },
-    {
-      name: "zoning",
-      title: "Zoning",
-      type: "string",
-      options: {
-        list: [
-          { title: "Residential", value: "residential" },
-          { title: "Commercial", value: "commercial" },
-          { title: "Industrial", value: "industrial" },
-          { title: "Agricultural", value: "agricultural" },
-          { title: "Mixed Use", value: "mixed-use" },
         ],
       },
     },
@@ -153,28 +238,35 @@ export const propertySchema = {
       },
     },
     {
-      name: "schoolDistrict",
-      title: "School District",
+      name: "state",
+      title: "State",
       type: "string",
+      options: {
+        list: [
+          { title: "Texas", value: "TX" },
+          { title: "California", value: "CA" },
+        ],
+      },
     },
     {
-      name: "county",
-      title: "County",
+      name: "schoolDistrict",
+      title: "School District",
       type: "string",
     },
   ],
   preview: {
     select: {
       title: "title",
-      location: "location",
+      address: "address",
+      city: "city",
       price: "price",
       media: "images.0",
     },
     prepare(selection: any) {
-      const { title, location, price, media } = selection
+      const { title, address, city, price, media } = selection
       return {
-        title,
-        subtitle: `${location} - $${price?.toLocaleString()}`,
+        title: title || `${address}, ${city}`,
+        subtitle: `${city} - ${price ? `$${price.toLocaleString()}` : 'Price TBD'}`,
         media,
       }
     },
