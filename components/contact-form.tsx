@@ -107,6 +107,7 @@ export function ContactForm() {
             <label className="text-sm font-medium mb-2 block">First Name</label>
               <Input 
                 placeholder="Enter your first name" 
+                className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
                 value={formData.firstName}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
                 required
@@ -116,6 +117,7 @@ export function ContactForm() {
             <label className="text-sm font-medium mb-2 block">Last Name</label>
               <Input 
                 placeholder="Enter your last name" 
+                className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
                 value={formData.lastName}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
                 required
@@ -128,6 +130,7 @@ export function ContactForm() {
             <Input 
               type="email" 
               placeholder="Enter your email" 
+              className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               required
@@ -138,6 +141,7 @@ export function ContactForm() {
             <label className="text-sm font-medium mb-2 block">Subject</label>
             <Input 
               placeholder="Enter subject" 
+              className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.subject}
               onChange={(e) => handleInputChange('subject', e.target.value)}
               required
@@ -148,7 +152,7 @@ export function ContactForm() {
           <label className="text-sm font-medium mb-2 block">Message</label>
             <Textarea 
               placeholder="Type your message here..." 
-              className="min-h-[120px]"
+              className="min-h-[120px] border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
             />

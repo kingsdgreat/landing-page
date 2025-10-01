@@ -103,8 +103,8 @@ export function PropertyContact({ property }: PropertyContactProps) {
   }
 
   const handleCallAgent = () => {
-    // You can replace this with your actual phone number
-    window.open('tel:+3234102500', '_self')
+    // Updated phone number to match footer
+    window.open('tel:408-628-1674', '_self')
   }
 
   return (
@@ -121,7 +121,7 @@ export function PropertyContact({ property }: PropertyContactProps) {
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input 
               placeholder="Your name" 
-              className="pl-10"
+              className="pl-10 border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
               required
@@ -133,7 +133,7 @@ export function PropertyContact({ property }: PropertyContactProps) {
             <Input 
               placeholder="Your email address" 
               type="email"
-              className="pl-10"
+              className="pl-10 border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               required
@@ -145,7 +145,7 @@ export function PropertyContact({ property }: PropertyContactProps) {
             <Input 
               placeholder="Your Phone number" 
               type="tel"
-              className="pl-10"
+              className="pl-10 border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
               required
@@ -156,7 +156,7 @@ export function PropertyContact({ property }: PropertyContactProps) {
             <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
           <Textarea
               placeholder="Type your message"
-            className="pl-10 min-h-[100px]"
+            className="pl-10 min-h-[100px] border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
           />

@@ -1,10 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, User, Mail, Phone, CheckCircle } from "lucide-react"
+import { MapPin, User, Mail, Phone, CheckCircle, ChevronDown } from "lucide-react"
 
 interface FormData {
   location: string
@@ -12,6 +11,107 @@ interface FormData {
   email: string
   phone: string
 }
+
+const LOCATIONS = [
+  "California - Oakland",
+  "California - Los Angeles", 
+  "California - San Francisco",
+  "California - San Diego",
+  "California - Sacramento",
+  "Colorado - Denver",
+  "Colorado - Colorado Springs",
+  "Colorado - Boulder",
+  "Colorado - Fort Collins",
+  "Texas - Austin",
+  "Texas - Houston",
+  "Texas - Dallas",
+  "Texas - San Antonio",
+  "Texas - Fort Worth",
+  "Florida - Miami",
+  "Florida - Orlando",
+  "Florida - Tampa",
+  "Florida - Jacksonville",
+  "Arizona - Phoenix",
+  "Arizona - Tucson",
+  "Arizona - Scottsdale",
+  "Nevada - Las Vegas",
+  "Nevada - Reno",
+  "Utah - Salt Lake City",
+  "Utah - Provo",
+  "Oregon - Portland",
+  "Oregon - Eugene",
+  "Washington - Seattle",
+  "Washington - Spokane",
+  "Idaho - Boise",
+  "Montana - Billings",
+  "Montana - Missoula",
+  "Wyoming - Cheyenne",
+  "Wyoming - Casper",
+  "New Mexico - Albuquerque",
+  "New Mexico - Santa Fe",
+  "Oklahoma - Oklahoma City",
+  "Oklahoma - Tulsa",
+  "Kansas - Wichita",
+  "Kansas - Kansas City",
+  "Nebraska - Omaha",
+  "Nebraska - Lincoln",
+  "North Dakota - Fargo",
+  "South Dakota - Sioux Falls",
+  "Minnesota - Minneapolis",
+  "Minnesota - Saint Paul",
+  "Iowa - Des Moines",
+  "Iowa - Cedar Rapids",
+  "Missouri - St. Louis",
+  "Missouri - Kansas City",
+  "Arkansas - Little Rock",
+  "Arkansas - Fayetteville",
+  "Louisiana - New Orleans",
+  "Louisiana - Baton Rouge",
+  "Mississippi - Jackson",
+  "Mississippi - Gulfport",
+  "Alabama - Birmingham",
+  "Alabama - Mobile",
+  "Tennessee - Nashville",
+  "Tennessee - Memphis",
+  "Kentucky - Louisville",
+  "Kentucky - Lexington",
+  "Georgia - Atlanta",
+  "Georgia - Savannah",
+  "South Carolina - Charleston",
+  "South Carolina - Columbia",
+  "North Carolina - Charlotte",
+  "North Carolina - Raleigh",
+  "Virginia - Richmond",
+  "Virginia - Virginia Beach",
+  "West Virginia - Charleston",
+  "West Virginia - Huntington",
+  "Maryland - Baltimore",
+  "Maryland - Annapolis",
+  "Delaware - Wilmington",
+  "Delaware - Dover",
+  "Pennsylvania - Philadelphia",
+  "Pennsylvania - Pittsburgh",
+  "New Jersey - Newark",
+  "New Jersey - Jersey City",
+  "New York - New York City",
+  "New York - Albany",
+  "Connecticut - Hartford",
+  "Connecticut - Bridgeport",
+  "Rhode Island - Providence",
+  "Rhode Island - Warwick",
+  "Massachusetts - Boston",
+  "Massachusetts - Worcester",
+  "Vermont - Burlington",
+  "Vermont - Montpelier",
+  "New Hampshire - Manchester",
+  "New Hampshire - Nashua",
+  "Maine - Portland",
+  "Maine - Bangor",
+  "Alaska - Anchorage",
+  "Alaska - Fairbanks",
+  "Hawaii - Honolulu",
+  "Hawaii - Hilo"
+]
 
 export function HeroSection() {
   const [formData, setFormData] = useState<FormData>({
@@ -23,6 +123,10 @@ export function HeroSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [successMessage, setSuccessMessage] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false)
+  const [filteredLocations, setFilteredLocations] = useState(LOCATIONS)
+  const locationInputRef = useRef<HTMLInputElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({
@@ -35,6 +139,39 @@ export function HeroSection() {
       setErrorMessage("")
     }
   }
+
+  const handleLocationInput = (value: string) => {
+    setFormData(prev => ({ ...prev, location: value }))
+    
+    // Filter locations based on input
+    const filtered = LOCATIONS.filter(location =>
+      location.toLowerCase().includes(value.toLowerCase())
+    )
+    setFilteredLocations(filtered)
+    setShowLocationDropdown(value.length > 0 && filtered.length > 0)
+  }
+
+  const selectLocation = (location: string) => {
+    setFormData(prev => ({ ...prev, location }))
+    setShowLocationDropdown(false)
+  }
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        locationInputRef.current &&
+        !locationInputRef.current.contains(event.target as Node)
+      ) {
+        setShowLocationDropdown(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -112,120 +249,45 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+      <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">Find Your Perfect Land Properties</h1>
         <p className="text-xl mb-8 text-balance">Discover premium land properties for sale across prime locations</p>
 
         {/* Search form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg p-6 max-w-4xl mx-auto shadow-lg">
+        <form onSubmit={handleSubmit} className="bg-white rounded-lg p-6 max-w-5xl mx-auto shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 relative">
               <MapPin className="h-5 w-5 text-[#000]" />
-              <Select value={formData.location} onValueChange={(value) => handleInputChange('location', value)}>
-                <SelectTrigger className="border-gray-200 text-gray-900 bg-white">
-                  <SelectValue placeholder="Location" className="text-gray-900" />
-                </SelectTrigger>
-                <SelectContent className="bg-white border-gray-200">
-                  <SelectItem value="california-oakland" className="text-gray-900 hover:bg-gray-100">California - Oakland</SelectItem>
-                  <SelectItem value="california-los-angeles" className="text-gray-900 hover:bg-gray-100">California - Los Angeles</SelectItem>
-                  <SelectItem value="california-san-francisco" className="text-gray-900 hover:bg-gray-100">California - San Francisco</SelectItem>
-                  <SelectItem value="california-san-diego" className="text-gray-900 hover:bg-gray-100">California - San Diego</SelectItem>
-                  <SelectItem value="california-sacramento" className="text-gray-900 hover:bg-gray-100">California - Sacramento</SelectItem>
-                  <SelectItem value="colorado-denver" className="text-gray-900 hover:bg-gray-100">Colorado - Denver</SelectItem>
-                  <SelectItem value="colorado-colorado-springs" className="text-gray-900 hover:bg-gray-100">Colorado - Colorado Springs</SelectItem>
-                  <SelectItem value="colorado-boulder" className="text-gray-900 hover:bg-gray-100">Colorado - Boulder</SelectItem>
-                  <SelectItem value="colorado-fort-collins" className="text-gray-900 hover:bg-gray-100">Colorado - Fort Collins</SelectItem>
-                  <SelectItem value="texas-austin" className="text-gray-900 hover:bg-gray-100">Texas - Austin</SelectItem>
-                  <SelectItem value="texas-houston" className="text-gray-900 hover:bg-gray-100">Texas - Houston</SelectItem>
-                  <SelectItem value="texas-dallas" className="text-gray-900 hover:bg-gray-100">Texas - Dallas</SelectItem>
-                  <SelectItem value="texas-san-antonio" className="text-gray-900 hover:bg-gray-100">Texas - San Antonio</SelectItem>
-                  <SelectItem value="texas-fort-worth" className="text-gray-900 hover:bg-gray-100">Texas - Fort Worth</SelectItem>
-                  <SelectItem value="florida-miami" className="text-gray-900 hover:bg-gray-100">Florida - Miami</SelectItem>
-                  <SelectItem value="florida-orlando" className="text-gray-900 hover:bg-gray-100">Florida - Orlando</SelectItem>
-                  <SelectItem value="florida-tampa" className="text-gray-900 hover:bg-gray-100">Florida - Tampa</SelectItem>
-                  <SelectItem value="florida-jacksonville" className="text-gray-900 hover:bg-gray-100">Florida - Jacksonville</SelectItem>
-                  <SelectItem value="arizona-phoenix" className="text-gray-900 hover:bg-gray-100">Arizona - Phoenix</SelectItem>
-                  <SelectItem value="arizona-tucson" className="text-gray-900 hover:bg-gray-100">Arizona - Tucson</SelectItem>
-                  <SelectItem value="arizona-scottsdale" className="text-gray-900 hover:bg-gray-100">Arizona - Scottsdale</SelectItem>
-                  <SelectItem value="nevada-las-vegas" className="text-gray-900 hover:bg-gray-100">Nevada - Las Vegas</SelectItem>
-                  <SelectItem value="nevada-reno" className="text-gray-900 hover:bg-gray-100">Nevada - Reno</SelectItem>
-                  <SelectItem value="utah-salt-lake-city" className="text-gray-900 hover:bg-gray-100">Utah - Salt Lake City</SelectItem>
-                  <SelectItem value="utah-provo" className="text-gray-900 hover:bg-gray-100">Utah - Provo</SelectItem>
-                  <SelectItem value="oregon-portland" className="text-gray-900 hover:bg-gray-100">Oregon - Portland</SelectItem>
-                  <SelectItem value="oregon-eugene" className="text-gray-900 hover:bg-gray-100">Oregon - Eugene</SelectItem>
-                  <SelectItem value="washington-seattle" className="text-gray-900 hover:bg-gray-100">Washington - Seattle</SelectItem>
-                  <SelectItem value="washington-spokane" className="text-gray-900 hover:bg-gray-100">Washington - Spokane</SelectItem>
-                  <SelectItem value="idaho-boise" className="text-gray-900 hover:bg-gray-100">Idaho - Boise</SelectItem>
-                  <SelectItem value="montana-billings" className="text-gray-900 hover:bg-gray-100">Montana - Billings</SelectItem>
-                  <SelectItem value="montana-missoula" className="text-gray-900 hover:bg-gray-100">Montana - Missoula</SelectItem>
-                  <SelectItem value="wyoming-cheyenne" className="text-gray-900 hover:bg-gray-100">Wyoming - Cheyenne</SelectItem>
-                  <SelectItem value="wyoming-casper" className="text-gray-900 hover:bg-gray-100">Wyoming - Casper</SelectItem>
-                  <SelectItem value="new-mexico-albuquerque" className="text-gray-900 hover:bg-gray-100">New Mexico - Albuquerque</SelectItem>
-                  <SelectItem value="new-mexico-santa-fe" className="text-gray-900 hover:bg-gray-100">New Mexico - Santa Fe</SelectItem>
-                  <SelectItem value="oklahoma-oklahoma-city" className="text-gray-900 hover:bg-gray-100">Oklahoma - Oklahoma City</SelectItem>
-                  <SelectItem value="oklahoma-tulsa" className="text-gray-900 hover:bg-gray-100">Oklahoma - Tulsa</SelectItem>
-                  <SelectItem value="kansas-wichita" className="text-gray-900 hover:bg-gray-100">Kansas - Wichita</SelectItem>
-                  <SelectItem value="kansas-kansas-city" className="text-gray-900 hover:bg-gray-100">Kansas - Kansas City</SelectItem>
-                  <SelectItem value="nebraska-omaha" className="text-gray-900 hover:bg-gray-100">Nebraska - Omaha</SelectItem>
-                  <SelectItem value="nebraska-lincoln" className="text-gray-900 hover:bg-gray-100">Nebraska - Lincoln</SelectItem>
-                  <SelectItem value="north-dakota-fargo" className="text-gray-900 hover:bg-gray-100">North Dakota - Fargo</SelectItem>
-                  <SelectItem value="south-dakota-sioux-falls" className="text-gray-900 hover:bg-gray-100">South Dakota - Sioux Falls</SelectItem>
-                  <SelectItem value="minnesota-minneapolis" className="text-gray-900 hover:bg-gray-100">Minnesota - Minneapolis</SelectItem>
-                  <SelectItem value="minnesota-saint-paul" className="text-gray-900 hover:bg-gray-100">Minnesota - Saint Paul</SelectItem>
-                  <SelectItem value="iowa-des-moines" className="text-gray-900 hover:bg-gray-100">Iowa - Des Moines</SelectItem>
-                  <SelectItem value="iowa-cedar-rapids" className="text-gray-900 hover:bg-gray-100">Iowa - Cedar Rapids</SelectItem>
-                  <SelectItem value="missouri-st-louis" className="text-gray-900 hover:bg-gray-100">Missouri - St. Louis</SelectItem>
-                  <SelectItem value="missouri-kansas-city" className="text-gray-900 hover:bg-gray-100">Missouri - Kansas City</SelectItem>
-                  <SelectItem value="arkansas-little-rock" className="text-gray-900 hover:bg-gray-100">Arkansas - Little Rock</SelectItem>
-                  <SelectItem value="arkansas-fayetteville" className="text-gray-900 hover:bg-gray-100">Arkansas - Fayetteville</SelectItem>
-                  <SelectItem value="louisiana-new-orleans" className="text-gray-900 hover:bg-gray-100">Louisiana - New Orleans</SelectItem>
-                  <SelectItem value="louisiana-baton-rouge" className="text-gray-900 hover:bg-gray-100">Louisiana - Baton Rouge</SelectItem>
-                  <SelectItem value="mississippi-jackson" className="text-gray-900 hover:bg-gray-100">Mississippi - Jackson</SelectItem>
-                  <SelectItem value="mississippi-gulfport" className="text-gray-900 hover:bg-gray-100">Mississippi - Gulfport</SelectItem>
-                  <SelectItem value="alabama-birmingham" className="text-gray-900 hover:bg-gray-100">Alabama - Birmingham</SelectItem>
-                  <SelectItem value="alabama-mobile" className="text-gray-900 hover:bg-gray-100">Alabama - Mobile</SelectItem>
-                  <SelectItem value="tennessee-nashville" className="text-gray-900 hover:bg-gray-100">Tennessee - Nashville</SelectItem>
-                  <SelectItem value="tennessee-memphis" className="text-gray-900 hover:bg-gray-100">Tennessee - Memphis</SelectItem>
-                  <SelectItem value="kentucky-louisville" className="text-gray-900 hover:bg-gray-100">Kentucky - Louisville</SelectItem>
-                  <SelectItem value="kentucky-lexington" className="text-gray-900 hover:bg-gray-100">Kentucky - Lexington</SelectItem>
-                  <SelectItem value="georgia-atlanta" className="text-gray-900 hover:bg-gray-100">Georgia - Atlanta</SelectItem>
-                  <SelectItem value="georgia-savannah" className="text-gray-900 hover:bg-gray-100">Georgia - Savannah</SelectItem>
-                  <SelectItem value="south-carolina-charleston" className="text-gray-900 hover:bg-gray-100">South Carolina - Charleston</SelectItem>
-                  <SelectItem value="south-carolina-columbia" className="text-gray-900 hover:bg-gray-100">South Carolina - Columbia</SelectItem>
-                  <SelectItem value="north-carolina-charlotte" className="text-gray-900 hover:bg-gray-100">North Carolina - Charlotte</SelectItem>
-                  <SelectItem value="north-carolina-raleigh" className="text-gray-900 hover:bg-gray-100">North Carolina - Raleigh</SelectItem>
-                  <SelectItem value="virginia-richmond" className="text-gray-900 hover:bg-gray-100">Virginia - Richmond</SelectItem>
-                  <SelectItem value="virginia-virginia-beach" className="text-gray-900 hover:bg-gray-100">Virginia - Virginia Beach</SelectItem>
-                  <SelectItem value="west-virginia-charleston" className="text-gray-900 hover:bg-gray-100">West Virginia - Charleston</SelectItem>
-                  <SelectItem value="west-virginia-huntington" className="text-gray-900 hover:bg-gray-100">West Virginia - Huntington</SelectItem>
-                  <SelectItem value="maryland-baltimore" className="text-gray-900 hover:bg-gray-100">Maryland - Baltimore</SelectItem>
-                  <SelectItem value="maryland-annapolis" className="text-gray-900 hover:bg-gray-100">Maryland - Annapolis</SelectItem>
-                  <SelectItem value="delaware-wilmington" className="text-gray-900 hover:bg-gray-100">Delaware - Wilmington</SelectItem>
-                  <SelectItem value="delaware-dover" className="text-gray-900 hover:bg-gray-100">Delaware - Dover</SelectItem>
-                  <SelectItem value="pennsylvania-philadelphia" className="text-gray-900 hover:bg-gray-100">Pennsylvania - Philadelphia</SelectItem>
-                  <SelectItem value="pennsylvania-pittsburgh" className="text-gray-900 hover:bg-gray-100">Pennsylvania - Pittsburgh</SelectItem>
-                  <SelectItem value="new-jersey-newark" className="text-gray-900 hover:bg-gray-100">New Jersey - Newark</SelectItem>
-                  <SelectItem value="new-jersey-jersey-city" className="text-gray-900 hover:bg-gray-100">New Jersey - Jersey City</SelectItem>
-                  <SelectItem value="new-york-new-york-city" className="text-gray-900 hover:bg-gray-100">New York - New York City</SelectItem>
-                  <SelectItem value="new-york-albany" className="text-gray-900 hover:bg-gray-100">New York - Albany</SelectItem>
-                  <SelectItem value="connecticut-hartford" className="text-gray-900 hover:bg-gray-100">Connecticut - Hartford</SelectItem>
-                  <SelectItem value="connecticut-bridgeport" className="text-gray-900 hover:bg-gray-100">Connecticut - Bridgeport</SelectItem>
-                  <SelectItem value="rhode-island-providence" className="text-gray-900 hover:bg-gray-100">Rhode Island - Providence</SelectItem>
-                  <SelectItem value="rhode-island-warwick" className="text-gray-900 hover:bg-gray-100">Rhode Island - Warwick</SelectItem>
-                  <SelectItem value="massachusetts-boston" className="text-gray-900 hover:bg-gray-100">Massachusetts - Boston</SelectItem>
-                  <SelectItem value="massachusetts-worcester" className="text-gray-900 hover:bg-gray-100">Massachusetts - Worcester</SelectItem>
-                  <SelectItem value="vermont-burlington" className="text-gray-900 hover:bg-gray-100">Vermont - Burlington</SelectItem>
-                  <SelectItem value="vermont-montpelier" className="text-gray-900 hover:bg-gray-100">Vermont - Montpelier</SelectItem>
-                  <SelectItem value="new-hampshire-manchester" className="text-gray-900 hover:bg-gray-100">New Hampshire - Manchester</SelectItem>
-                  <SelectItem value="new-hampshire-nashua" className="text-gray-900 hover:bg-gray-100">New Hampshire - Nashua</SelectItem>
-                  <SelectItem value="maine-portland" className="text-gray-900 hover:bg-gray-100">Maine - Portland</SelectItem>
-                  <SelectItem value="maine-bangor" className="text-gray-900 hover:bg-gray-100">Maine - Bangor</SelectItem>
-                  <SelectItem value="alaska-anchorage" className="text-gray-900 hover:bg-gray-100">Alaska - Anchorage</SelectItem>
-                  <SelectItem value="alaska-fairbanks" className="text-gray-900 hover:bg-gray-100">Alaska - Fairbanks</SelectItem>
-                  <SelectItem value="hawaii-honolulu" className="text-gray-900 hover:bg-gray-100">Hawaii - Honolulu</SelectItem>
-                  <SelectItem value="hawaii-hilo" className="text-gray-900 hover:bg-gray-100">Hawaii - Hilo</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="relative flex-1">
+                <Input
+                  ref={locationInputRef}
+                  placeholder="Location"
+                  className="border-gray-200 text-gray-900 bg-white "
+                  value={formData.location}
+                  onChange={(e) => handleLocationInput(e.target.value)}
+                  onFocus={() => {
+                    if (formData.location.length > 0) {
+                      setShowLocationDropdown(true)
+                    }
+                  }}
+                />
+                {showLocationDropdown && filteredLocations.length > 0 && (
+                  <div
+                    ref={dropdownRef}
+                    className="absolute top-full left-0 text-left   right-0 z-50 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto"
+                  >
+                    {filteredLocations.map((location, index) => (
+                      <div
+                        key={index}
+                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-gray-900 text-sm"
+                        onClick={() => selectLocation(location)}
+                      >
+                        {location}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="flex items-center gap-2">

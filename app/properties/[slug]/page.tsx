@@ -24,7 +24,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
+      <main className="h-full">
         <PropertyGallery property={property} />
         <div className=" mx-auto px-4 sm:px-6 md:px-20 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">

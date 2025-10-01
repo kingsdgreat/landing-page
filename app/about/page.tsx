@@ -17,7 +17,7 @@ export default function AboutPage() {
         <AboutStats />
         <AboutStory />
         <AboutValues />
-        <AboutTeam />
+        {/* <AboutTeam /> */}
         <HowItWorks />
         <CTASection />
       </main>

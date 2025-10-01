@@ -13,9 +13,13 @@ export function PropertyLocation({ property }: PropertyLocationProps) {
   // Default coordinates (San Francisco) if property coordinates are not available
   const defaultCoords = { lat: 37.7749, lng: -122.4194 }
   const coords = property.coordinates || defaultCoords
+  console.log(coords,'coords  ') 
   
-  // Generate Google Maps embed URL
-  const mapEmbedUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d${coords.lng}!3d${coords.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ2JzI5LjYiTiAxMjLCsDI1JzA5LjgiVw!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus`
+  // Get Google Maps API key from environment variables
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+  
+  // Generate proper Google Maps embed URL using the coordinates
+  const mapEmbedUrl = `https://www.google.com/maps/embed/v1/view?key=${googleMapsApiKey}&center=${coords.lat},${coords.lng}&zoom=15&maptype=roadmap`
   
   // Generate Google Maps directions URL
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords.lat},${coords.lng}`

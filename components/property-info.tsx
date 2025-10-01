@@ -10,6 +10,25 @@ interface PropertyInfoProps {
 }
 
 export function PropertyInfo({ property }: PropertyInfoProps) {
+  // Helper function to format size display
+  const formatSize = () => {
+    if (property.size) {
+      return property.size
+    }
+    
+    if (property.acreage) {
+      if (property.acreage < 1) {
+        // Convert acres to square feet (1 acre = 43,560 sq ft)
+        const squareFeet = Math.round(property.acreage * 43560)
+        return `${squareFeet.toLocaleString()} sq ft`
+      } else {
+        return `${property.acreage} Acre${property.acreage !== 1 ? 's' : ''}`
+      }
+    }
+    
+    return 'Size not available'
+  }
+
   return (
     <Card className="border-0 shadow-none">
       <CardContent className="p-0">
@@ -36,7 +55,7 @@ export function PropertyInfo({ property }: PropertyInfoProps) {
         <div className="flex items-center gap-6 mb-6">
           <div className="flex items-center gap-2">
             <Maximize className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">{property.size || `${property.acreage} Acre${property.acreage !== 1 ? 's' : ''}`}</span>
+            <span className="text-sm font-medium">{formatSize()}</span>
           </div>
           
           <div className="w-px h-6 bg-gray-300"></div>

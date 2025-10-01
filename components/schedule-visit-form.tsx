@@ -121,6 +121,7 @@ export function ScheduleVisitForm() {
             <label className="text-sm font-medium mb-2 block">First Name</label>
             <Input 
               placeholder="Enter your first name" 
+              className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.firstName}
               onChange={(e) => handleInputChange('firstName', e.target.value)}
               required
@@ -131,6 +132,7 @@ export function ScheduleVisitForm() {
             <label className="text-sm font-medium mb-2 block">Last Name</label>
             <Input 
               placeholder="Enter your last name" 
+              className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.lastName}
               onChange={(e) => handleInputChange('lastName', e.target.value)}
               required
@@ -142,6 +144,7 @@ export function ScheduleVisitForm() {
             <Input 
               type="email" 
               placeholder="Enter your email" 
+              className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               required
@@ -153,6 +156,7 @@ export function ScheduleVisitForm() {
             <Input 
               type="tel" 
               placeholder="Enter your phone number" 
+              className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
               required
@@ -163,6 +167,7 @@ export function ScheduleVisitForm() {
             <label className="text-sm font-medium mb-2 block">Subject</label>
             <Input 
               placeholder="Enter subject" 
+              className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.subject}
               onChange={(e) => handleInputChange('subject', e.target.value)}
               required
@@ -176,7 +181,7 @@ export function ScheduleVisitForm() {
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input 
                   type="date" 
-                  className="pl-10"
+                  className="pl-10 border-gray-300 focus:border-gray-900 focus:ring-gray-900"
                   value={formData.preferredDate}
                   onChange={(e) => handleInputChange('preferredDate', e.target.value)}
                 />
@@ -188,7 +193,7 @@ export function ScheduleVisitForm() {
                 <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input 
                   type="time" 
-                  className="pl-10"
+                  className="pl-10 border-gray-300 focus:border-gray-900 focus:ring-gray-900"
                   value={formData.preferredTime}
                   onChange={(e) => handleInputChange('preferredTime', e.target.value)}
                 />
@@ -200,7 +205,7 @@ export function ScheduleVisitForm() {
           <label className="text-sm font-medium mb-2 block">Message</label>
             <Textarea 
               placeholder="Type your message here..." 
-              className="min-h-[120px]"
+              className="min-h-[120px] border-gray-300 focus:border-gray-900 focus:ring-gray-900"
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
             />
