@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to team with form data
     const teamEmailResult = await resend.emails.send({
-      from: 'Acme <onboarding@resend.dev>',
+      from: 'Secure Your Land <info@secureyourland.com>',
       to: ['offers@secureyourland.com'], 
       subject: `New ${formType} from ${name}`,
       html: `
