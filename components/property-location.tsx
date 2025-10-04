@@ -18,14 +18,14 @@ export function PropertyLocation({ property }: PropertyLocationProps) {
   // Get Google Maps API key from environment variables
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   
-  // Generate proper Google Maps embed URL using the coordinates
-  const mapEmbedUrl = `https://www.google.com/maps/embed/v1/view?key=${googleMapsApiKey}&center=${coords.lat},${coords.lng}&zoom=15&maptype=roadmap`
+  // Generate proper Google Maps embed URL using the coordinates with marker
+  const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=${coords.lat},${coords.lng}&zoom=18&maptype=satellite`
   
   // Generate Google Maps directions URL
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords.lat},${coords.lng}`
   
   // Generate Google Maps view URL
-  const viewUrl = `https://www.google.com/maps/@${coords.lat},${coords.lng},15z`
+  const viewUrl = `https://www.google.com/maps/@${coords.lat},${coords.lng},18z`
 
   return (
     <Card>

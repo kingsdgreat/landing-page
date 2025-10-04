@@ -3,6 +3,11 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+// Check if API key is available
+if (!process.env.RESEND_API_KEY) {
+  console.error('RESEND_API_KEY is not set in environment variables')
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -145,6 +150,8 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error processing contact form:', error)
+    console.error('RESEND_API_KEY available:', !!process.env.RESEND_API_KEY)
+    console.error('Error details:', error instanceof Error ? error.message : 'Unknown error')
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

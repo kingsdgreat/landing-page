@@ -62,7 +62,7 @@ function ContactInfo() {
         </div>
         <div>
               <h3 className="font-semibold text-lg">Phone</h3>
-              <p className="text-[#777777]">+32 341-02500</p>
+              <p className="text-[#777777]">408-628-1674</p>
         </div>
       </div>
         </CardContent>

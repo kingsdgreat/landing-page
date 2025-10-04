@@ -902,7 +902,7 @@ export function WelcomePopup() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#8B7355] hover:bg-[#7A6349] text-white font-medium py-3 rounded-lg disabled:opacity-50"
+            className="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-3 rounded-lg disabled:opacity-50"
           >
             {isSubmitting ? "Submitting..." : "See Properties"}
           </Button>
