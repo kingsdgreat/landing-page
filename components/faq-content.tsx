@@ -62,7 +62,15 @@ export function FAQContent() {
             <div key={index} className="bg-white border rounded-lg self-start">
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between gap-4 text-left p-6 hover:bg-gray-50 transition-colors"
+                onTouchEnd={(e) => {
+                  e.preventDefault()
+                  toggleFAQ(index)
+                }}
+                className="w-full flex items-center justify-between gap-4 text-left p-6 hover:bg-gray-50 transition-colors touch-manipulation min-h-[44px]"
+                style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent'
+                }}
               >
                 <span className="text-gray-900 font-medium text-sm flex-1">{faq.question}</span>
                 <div className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full flex-shrink-0">

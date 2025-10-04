@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "./ui/button"
 import { Plus, X } from "lucide-react"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 const faqs = [
   {
@@ -27,7 +27,6 @@ const faqs = [
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const router = useRouter()
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
@@ -51,7 +50,15 @@ export function FAQSection() {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:no-underline"
+                onTouchEnd={(e) => {
+                  e.preventDefault()
+                  toggleFAQ(index)
+                }}
+                className="w-full flex items-center justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:no-underline touch-manipulation min-h-[44px]"
+                style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent'
+                }}
               >
                 <span>{faq.question}</span>
                 <div className="flex items-center justify-center w-6 h-6">
@@ -73,7 +80,11 @@ export function FAQSection() {
         </div>
 
         <div className="text-center mt-8">
-          <Button onClick={() => router.push('/faq')} className="bg-primary hover:bg-primary/90">View All FAQs</Button>
+          <Link href="/faq" >
+            <Button className="bg-primary cursor-pointer hover:bg-primary/90">
+              View All FAQs
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
